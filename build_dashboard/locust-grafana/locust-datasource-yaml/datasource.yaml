@@ -15,3 +15,22 @@ datasources:
     sslMode: "disable"  # "disable", "require", "verify-ca" 또는 "verify-full" 중 하나
     postgresVersion: 1200  # PostgreSQL 버전
     timescaledb: true  # TimescaleDB 사용 여부
+
+- name: Prometheus
+  type: Prometheus
+  access: proxy
+  orgId: 1
+  url: "https://tests.charge.ecriplus.fr/prom"
+  jsonData:
+    httpMethod: POST
+    manageAlerts: true
+    prometheusType: Prometheus
+    prometheusVersion: 2.44.0
+    cacheLevel: 'High'
+    disableRecordingRules: false
+    incrementalQueryOverlapWindow: 10m
+    exemplarTraceIdDestinations:
+      # Field with internal link pointing to data source in Grafana.
+      # datasourceUid value can be anything, but it should be unique across all defined data source uids.
+      - datasourceUid: prometheus_source
+        name: prometheus_source
